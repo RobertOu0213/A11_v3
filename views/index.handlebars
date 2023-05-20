@@ -1,0 +1,40 @@
+{{#if shortURL}}
+
+  <ul class="list-group">
+    <h3>Success! Please use the link:</h3>
+    <li class="list-group-item">
+      <div class="d-flex">
+        <div class="me-auto">
+          <h4 style="display: inline; vertical-align: middle;">
+            http://localhost:3000/{{shortURL}}
+          </h4>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+{{else}}
+  <div>
+    <h2>URL Shortener</h2>
+    <img
+      class="mb-2"
+      src="https://assets-lighthouse.alphacamp.co/uploads/image/file/16716/ExportedContentImage_00.png"
+      alt="chain"
+      width="150"
+      height="150"
+    />
+    <form action="/" method="POST">
+      <input
+        type="url"
+        name="originalURL"
+        placeholder="Input URL Here"
+        style="width: 600px"
+        class="mb-2"
+      />
+      <br />
+      <button type="submit">Shorten</button>
+    </form>
+
+  </div>
+
+{{/if}}
