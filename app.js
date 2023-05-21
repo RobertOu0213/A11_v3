@@ -17,39 +17,39 @@ app.get("/", (req, res) => {
 });
 
 //寫法一
-// app.post("/", (req, res) => {
-//   if (!req.body.originalURL) return res.redirect("/");
-//   const shortURL = generatePassword();
-
-//   URL.findOne({ originalURL: req.body.originalURL })
-//     .then((data) => {
-//       if (data) return data;
-//       else
-//         URL.create({
-//           shortURL,
-//           originalURL: req.body.originalURL,
-//         });
-//     })
-//     .then((result) => res.render("index", { shortURL: result.shortURL }))
-//     .catch((error) => console.log(error));
-// });
-
-//寫法二
 app.post("/", (req, res) => {
   if (!req.body.originalURL) return res.redirect("/");
   const shortURL = generatePassword();
 
   URL.findOne({ originalURL: req.body.originalURL })
-    .then((data) =>
-      data ? data : URL.create({ shortURL, originalURL: req.body.originalURL })
-    )
-    .then((data) =>
-      res.render("index", {
-        shortURL: data.shortURL,
-      })
-    )
-    .catch((error) => console.error(error));
+    .then((data) => {
+      if (data) return data;
+      else
+        return URL.create({
+          shortURL,
+          originalURL: req.body.originalURL,
+        });
+    })
+    .then((result) => res.render("index", { shortURL: result.shortURL }))
+    .catch((error) => console.log(error));
 });
+
+//寫法二
+// app.post("/", (req, res) => {
+//   if (!req.body.originalURL) return res.redirect("/");
+//   const shortURL = generatePassword();
+
+//   URL.findOne({ originalURL: req.body.originalURL })
+//     .then((data) =>
+//       data ? data : URL.create({ shortURL, originalURL: req.body.originalURL })
+//     )
+//     .then((data) =>
+//       res.render("index", {
+//         shortURL: data.shortURL,
+//       })
+//     )
+//     .catch((error) => console.error(error));
+// });
 
 app.get("/:shortURL", (req, res) => {
   const { shortURL } = req.params;
